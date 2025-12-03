@@ -1,9 +1,9 @@
 // src/compenents/forgetPassword.jsx
 import { useState } from "react";
-import api from "../api";
+import api from "../../api";
 import { useNavigate } from "react-router-dom";
 
-export default function ForgotPassword() {
+export default function ForgotPasswordCompany() {
   const [email, setEmail] = useState("");
   const [msg, setMsg] = useState("");
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ export default function ForgotPassword() {
     }
 
     try {
-      await api.post("/send-reset-code", { email });
+      await api.post("/send-reset-code/company", { email });
       localStorage.setItem("resetEmail", email);
       if (typeof window !== "undefined" && window.Swal) {
         window.Swal.fire({
@@ -35,7 +35,7 @@ export default function ForgotPassword() {
       } else {
         setMsg("Code envoyé ! Vérifiez votre boîte mail.");
       }
-      navigate("/driver/verify-reset");
+      navigate("/company/verify-reset");
     } catch (err) {
       const errorMsg = err?.response?.data?.message || err.message || "Erreur inconnue";
       if (typeof window !== "undefined" && window.Swal) {
@@ -79,7 +79,7 @@ export default function ForgotPassword() {
         <p className="mt-4 text-sm text-red-500 min-h-[1.2rem]">{msg}</p>
 
         <div className="mt-4 text-sm">
-          <a href="/driver/verify-reset" className="text-orange-600 hover:underline">
+          <a href="/company/verify-reset" className="text-orange-600 hover:underline">
             ➡ Aller vérifier le code
           </a>
         </div>

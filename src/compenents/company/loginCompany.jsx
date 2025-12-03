@@ -1,9 +1,9 @@
 import { useState } from "react";
-import api from "../api";
-import Forklift from "../assets/forklift.svg";
+import api from "../../api";
+import Forklift from "../../assets/forklift.svg";
 import { useNavigate } from "react-router-dom";
 
-export default function LoginDriver() {
+export default function LoginCompany() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState("");
@@ -12,9 +12,9 @@ export default function LoginDriver() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await api.post("/login-driver", { email, password });
-      localStorage.setItem("driverToken", res.data.token);
-      localStorage.setItem("driver", JSON.stringify(res.data.driver));
+      const res = await api.post("/login-company", { email, password });
+      localStorage.setItem("companyToken", res.data.token);
+      localStorage.setItem("company", JSON.stringify(res.data.company));
       // SweetAlert2 success popup if available
       if (typeof window !== "undefined" && window.Swal) {
         window.Swal.fire({
@@ -24,7 +24,7 @@ export default function LoginDriver() {
           timer: 1800,
           showConfirmButton: false,
         });
-        navigate("/driver/dashboard");
+        navigate("/company/dashboard");
       } else {
         setMsg("Connexion réussie !");
       }
@@ -103,8 +103,8 @@ export default function LoginDriver() {
           <p className="mt-4 text-sm text-red-500 min-h-[1.2rem]">{msg}</p>
 
           <div className="mt-6 flex flex-col sm:flex-row sm:justify-between gap-3 text-sm">
-            <a href="/driver/forgot-password" className="text-orange-600 hover:underline">Mot de passe oublié ?</a>
-            <a href="/driver/register" className="text-orange-600 hover:underline">Créer un compte</a>
+            <a href="/company/forgot-password" className="text-orange-600 hover:underline">Mot de passe oublié ?</a>
+            <a href="/company/register" className="text-orange-600 hover:underline">Créer un compte</a>
           </div>
         </div>
       </div>

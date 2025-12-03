@@ -1,8 +1,8 @@
 // src/compenents/resetpassword.jsx
 import { useState } from "react";
-import api from "../api";
+import api from "../../api";
 
-export default function ResetPassword() {
+export default function ResetPasswordCompany() {
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
   const [msg, setMsg] = useState("");
@@ -24,7 +24,7 @@ export default function ResetPassword() {
     const code = localStorage.getItem("resetCode");
 
     try {
-      await api.post("/reset-password", {
+      await api.post("/reset-password/company", {
         email,
         code,
         newPassword: password,
