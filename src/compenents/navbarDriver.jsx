@@ -58,10 +58,6 @@ export default function NavbarDriver() {
 					</div>
 
 					<nav className="hidden md:flex items-center gap-4">
-						<Link to="/driver/offers" className="text-gray-700 hover:text-orange-500 transition flex items-center gap-2">
-							<i className="fa-solid fa-briefcase" />
-							<span>Voir les offres</span>
-						</Link>
 
 						<Link to="/driver/profile" className="text-gray-700 hover:text-orange-500 transition flex items-center gap-2">
 							<i className="fa-solid fa-user" />
@@ -73,6 +69,15 @@ export default function NavbarDriver() {
 							<span>Mettre à jour</span>
 						</Link>
 
+						<Link to="/driver/jobs" className="text-gray-700 hover:text-orange-500 transition flex items-center gap-2">
+							<i className="fa-solid fa-pen-to-square" />
+							<span>Voir Les Offres</span>
+						</Link>
+
+						<Link to="/driver/applications-status" className="text-gray-700 hover:text-orange-500 transition flex items-center gap-2">
+							<i className="fa-solid fa-pen-to-square" />
+							<span>Application status</span>
+						</Link>
 						<button onClick={handleLogout} className="ml-2 inline-flex items-center gap-2 px-3 py-2 rounded-md bg-orange-400 text-white hover:bg-orange-500 transition">
 							<i className="fa-solid fa-right-from-bracket" /> Déconnexion
 						</button>

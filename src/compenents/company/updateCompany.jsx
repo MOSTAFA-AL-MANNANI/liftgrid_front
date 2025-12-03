@@ -49,9 +49,7 @@ export default function UpdateCompany() {
 
     try {
       // ⬅️ ici on utilise api.put au lieu de axios.put
-      const res = await api.put(`/companies/${company._id}`, data, {
-        headers: { "Content-Type": "multipart/form-data" }
-      });
+      const res = await api.put(`/companies/${company._id}`, data);
 
       // mise à jour localStorage
       localStorage.setItem("company", JSON.stringify(res.data.company));
@@ -141,19 +139,18 @@ export default function UpdateCompany() {
           />
 
           {/* Preview image */}
-          {preview ? (
-            <img
-              src={preview}
-              alt="preview"
-              className="w-24 h-24 mt-2 rounded-full border-2 border-[#FFB000] object-cover"
-            />
-          ) : company.logo ? (
-            <img
-              src={`data:${company.logo.contentType};base64,${company.logo.data}`}
-              className="w-24 h-24 mt-2 rounded-full border-2 border-[#FFB000] object-cover"
-              alt="logo"
-            />
-          ) : null}
+{preview ? (
+  <img
+    src={preview}
+    className="w-24 h-24 rounded-full border-2 border-[#FFB000] object-cover"
+  />
+) : company.logo && company.logo.data ? (
+  <img
+    src={`data:${company.logo.contentType};base64,${company.logo.data}`}
+    className="w-24 h-24 rounded-full border-2 border-[#FFB000] object-cover"
+  />
+) : null}
+
         </div>
 
         <button

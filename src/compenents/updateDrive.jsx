@@ -53,9 +53,7 @@ export default function UpdateProfile() {
 
     setSubmitting(true);
     try {
-      const res = await api.put(`/update-driver/${stored?._id}`, data, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      const res = await api.put(`/drivers/${stored?._id}`, data);
 
       const updated = res.data?.updated || res.data;
       if (updated) localStorage.setItem("driver", JSON.stringify(updated));

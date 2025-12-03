@@ -22,6 +22,14 @@ import DriverApplicationsStatus from "./compenents/driverjobsstatus";
 import JobApplicationsForCompany from "./compenents/company/JobApplicationsForCompany";
 import CompanyUpdateApplicationStatus from "./compenents/company/CompanyUpdateApplicationStatus";
 import CompanyApplicationsList from "./compenents/company/CompanyApplicationsList";
+import NavbarDriver from "./compenents/navbarDriver";
+import NavbarCompany from "./compenents/company/navbarComapny";
+import Index from "./compenents/lainding page";
+import ChooseRole from "./compenents/lainding page/ChoseRole";
+import { Footer } from "./compenents/lainding page/footer";
+import DriverLayout from "./compenents/layouats/Driver";
+import CompanyLayout from "./compenents/layouats/Company";
+
 
 
 
@@ -33,6 +41,8 @@ function App() {
           <BrowserRouter>
       <Routes>
 
+        <Route path="/" element={<Index />} />
+        <Route path="/choserole" element={<ChooseRole />} />
         {/* صفحة تسجيل الدخول */}
         <Route path="/driver/login" element={<LoginDriver />} />
 
@@ -49,13 +59,13 @@ function App() {
         <Route path="/driver/reset-password" element={<ResetPassword />} />
 
         {/* صفحة الملف الشخصي */}
-        <Route path="/driver/profile" element={<UpdateProfile />} />
+        
 
         {/* لوحة التحكم الخاصة بالسائق */}
-        <Route path="/driver/dashboard" element={<Dashbord />} />
-        <Route path="/driver/jobs" element={<DriverJobsList />} />
-        <Route path="/driver/applications-status" element={<DriverApplicationsStatus />} />
-
+        <Route path="/driver/dashboard" element={<DriverLayout><Dashbord /></DriverLayout>} />
+        <Route path="/driver/jobs" element={<DriverLayout><DriverJobsList /></DriverLayout>} />
+        <Route path="/driver/applications-status" element={<DriverLayout><DriverApplicationsStatus /></DriverLayout>} />
+        <Route path="/driver/profile" element={<DriverLayout><UpdateProfile /></DriverLayout>} />
 
 
 
@@ -76,20 +86,18 @@ function App() {
         <Route path="/company/reset-password" element={<ResetPasswordCompany />} />
 
         {/* صفحة الملف الشخصي */}
-        <Route path="/company/profile" element={<UpdateCompany />} />
+        <Route path="/company/profile" element={<CompanyLayout><UpdateCompany /></CompanyLayout>} />
 
-        {/* لوحة التحكم الخاصة بالشركة */}
-        <Route path="/company/dashboard" element={<DashbordCompany />} />
+        <Route path="/company/dashboard" element={<CompanyLayout><DashbordCompany /></CompanyLayout>} />
 
 
-        <Route path="/company/job" element={<CompanyJobsList />} />
-        <Route path="/company/job/add" element={<AddJob />} />
-        <Route path="/company/job/:id" element={<JobDetail />} />
+        <Route path="/company/job" element={<CompanyLayout><CompanyJobsList /></CompanyLayout>} />
+        <Route path="/company/job/add" element={<CompanyLayout><AddJob /></CompanyLayout>} />
+        <Route path="/company/job/:id" element={<CompanyLayout><JobDetail /></CompanyLayout>} />
 
-        <Route path="/company/job/:id/applications" element={<JobApplicationsForCompany />} />
-        <Route path="/company/application/:id/update-status" element={<CompanyUpdateApplicationStatus  />} />
-        <Route path="/company/applications" element={<CompanyApplicationsList />} />
-
+        <Route path="/company/job/:id/applications" element={<CompanyLayout><JobApplicationsForCompany /></CompanyLayout>} />
+        <Route path="/company/application/:id/update-status" element={<CompanyLayout><CompanyUpdateApplicationStatus  /></CompanyLayout>} />
+        <Route path="/company/applications" element={<CompanyLayout><CompanyApplicationsList /></CompanyLayout>} />
       </Routes>
     </BrowserRouter>
     </>

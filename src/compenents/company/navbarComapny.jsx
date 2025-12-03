@@ -62,7 +62,22 @@ export default function NavbarCompany() {
 							<i className="fa-solid fa-briefcase" />
 							<span>Voir les offres</span>
 						</Link>
-
+						<Link to="/company/dashboard" className="text-gray-700 hover:text-orange-500 transition flex items-center gap-2">
+							<i className="fa-solid fa-briefcase" />
+							<span>Dashboard</span>
+						</Link>
+						<Link to="/company/job" className="text-gray-700 hover:text-orange-500 transition flex items-center gap-2">
+							<i className="fa-solid fa-briefcase" />
+							<span>Les Offres</span>
+						</Link>
+						<Link to="/company/job/add" className="text-gray-700 hover:text-orange-500 transition flex items-center gap-2">
+							<i className="fa-solid fa-briefcase" />
+							<span>Ajouter une offre</span>
+						</Link>
+						<Link to="/company/applications" className="text-gray-700 hover:text-orange-500 transition flex items-center gap-2">
+							<i className="fa-solid fa-briefcase" />
+							<span>Application</span>
+						</Link>
 						<Link to="/company/profile" className="text-gray-700 hover:text-orange-500 transition flex items-center gap-2">
 							<i className="fa-solid fa-user" />
 							<span>Voir profil</span>
