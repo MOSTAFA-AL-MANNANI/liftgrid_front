@@ -58,10 +58,6 @@ export default function NavbarCompany() {
 					</div>
 
 					<nav className="hidden md:flex items-center gap-4">
-						<Link to="/company/offers" className="text-gray-700 hover:text-orange-500 transition flex items-center gap-2">
-							<i className="fa-solid fa-briefcase" />
-							<span>Voir les offres</span>
-						</Link>
 						<Link to="/company/dashboard" className="text-gray-700 hover:text-orange-500 transition flex items-center gap-2">
 							<i className="fa-solid fa-briefcase" />
 							<span>Dashboard</span>
@@ -78,7 +74,7 @@ export default function NavbarCompany() {
 							<i className="fa-solid fa-briefcase" />
 							<span>Application</span>
 						</Link>
-						<Link to="/company/profile" className="text-gray-700 hover:text-orange-500 transition flex items-center gap-2">
+						<Link to="/company/detail" className="text-gray-700 hover:text-orange-500 transition flex items-center gap-2">
 							<i className="fa-solid fa-user" />
 							<span>Voir profil</span>
 						</Link>

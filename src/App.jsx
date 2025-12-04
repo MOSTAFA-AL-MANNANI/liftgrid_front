@@ -5,7 +5,6 @@ import RegisterDriver from "./compenents/register";
 import ForgotPassword from "./compenents/forgetPassword";
 import VerifyCode from "./compenents/verfycode";
 import ResetPassword from "./compenents/resetpassword";
-import UpdateProfile from "./compenents/updateDrive";
 import Dashbord from "./compenents/dashbord";
 import LoginCompany from "./compenents/company/loginCompany";
 import CompanyForm from "./compenents/company/register";
@@ -29,6 +28,13 @@ import ChooseRole from "./compenents/lainding page/ChoseRole";
 import { Footer } from "./compenents/lainding page/footer";
 import DriverLayout from "./compenents/layouats/Driver";
 import CompanyLayout from "./compenents/layouats/Company";
+import CompanyDetail from "./compenents/company/detail";
+import DriverDetail from "./compenents/detailDriver";
+import UpdateDriver from "./compenents/updateDrive";
+import { About } from "./compenents/lainding page/about";
+import { Home } from "./compenents/lainding page/home";
+import { Services } from "./compenents/lainding page/services";
+import PageLayout from "./compenents/layouats/page";
 
 
 
@@ -41,7 +47,9 @@ function App() {
           <BrowserRouter>
       <Routes>
 
-        <Route path="/" element={<Index />} />
+        <Route path="/" element={<PageLayout><Home /></PageLayout>} />
+        <Route path="/about" element={<PageLayout><About /></PageLayout>} />
+        <Route path="/services" element={<PageLayout><Services /></PageLayout>} />
         <Route path="/choserole" element={<ChooseRole />} />
         {/* صفحة تسجيل الدخول */}
         <Route path="/driver/login" element={<LoginDriver />} />
@@ -65,7 +73,8 @@ function App() {
         <Route path="/driver/dashboard" element={<DriverLayout><Dashbord /></DriverLayout>} />
         <Route path="/driver/jobs" element={<DriverLayout><DriverJobsList /></DriverLayout>} />
         <Route path="/driver/applications-status" element={<DriverLayout><DriverApplicationsStatus /></DriverLayout>} />
-        <Route path="/driver/profile" element={<DriverLayout><UpdateProfile /></DriverLayout>} />
+        <Route path="/driver/profile" element={<DriverLayout><UpdateDriver /></DriverLayout>} />
+        <Route path="/driver/profile/voir" element={<DriverLayout><DriverDetail /></DriverLayout>} />
 
 
 
@@ -94,6 +103,7 @@ function App() {
         <Route path="/company/job" element={<CompanyLayout><CompanyJobsList /></CompanyLayout>} />
         <Route path="/company/job/add" element={<CompanyLayout><AddJob /></CompanyLayout>} />
         <Route path="/company/job/:id" element={<CompanyLayout><JobDetail /></CompanyLayout>} />
+        <Route path="/company/detail" element={<CompanyLayout><CompanyDetail /></CompanyLayout>} />
 
         <Route path="/company/job/:id/applications" element={<CompanyLayout><JobApplicationsForCompany /></CompanyLayout>} />
         <Route path="/company/application/:id/update-status" element={<CompanyLayout><CompanyUpdateApplicationStatus  /></CompanyLayout>} />

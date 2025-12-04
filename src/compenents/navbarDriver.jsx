@@ -59,7 +59,7 @@ export default function NavbarDriver() {
 
 					<nav className="hidden md:flex items-center gap-4">
 
-						<Link to="/driver/profile" className="text-gray-700 hover:text-orange-500 transition flex items-center gap-2">
+						<Link to="/driver/profile/voir" className="text-gray-700 hover:text-orange-500 transition flex items-center gap-2">
 							<i className="fa-solid fa-user" />
 							<span>Voir profil</span>
 						</Link>
