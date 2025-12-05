@@ -127,41 +127,47 @@ export const Home = () => {
             </motion.div>
 
             {/* Right Illustration */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="relative"
-            >
-              <div className="relative bg-gradient-to-br from-gray-900 to-black rounded-2xl p-8 shadow-2xl border border-gray-800">
-                {/* Animated forklift illustration */}
-                <div className="relative h-80 w-full">
-                  {/* You can replace this with your actual SVG/Image */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <Forklift className="w-48 h-48 text-[#ffb000] animate-bounce" />
-                  </div>
-                  
-                  {/* Floating badges */}
-                  <motion.div
-                    className="absolute top-4 left-4 bg-green-500/20 backdrop-blur-sm px-3 py-1 rounded-full flex items-center gap-2"
-                    animate={{ y: [0, -10, 0] }}
-                    transition={{ duration: 3, repeat: Infinity }}
-                  >
-                    <CheckCircle className="w-4 h-4 text-green-400" />
-                    <span className="text-green-300 text-sm font-medium">Disponible</span>
-                  </motion.div>
-                  
-                  <motion.div
-                    className="absolute top-4 right-4 bg-blue-500/20 backdrop-blur-sm px-3 py-1 rounded-full flex items-center gap-2"
-                    animate={{ y: [0, -10, 0] }}
-                    transition={{ duration: 3, repeat: Infinity, delay: 0.5 }}
-                  >
-                    <Star className="w-4 h-4 text-yellow-400" />
-                    <span className="text-blue-300 text-sm font-medium">Top cariste</span>
-                  </motion.div>
-                </div>
-              </div>
-            </motion.div>
+<motion.div
+  initial={{ opacity: 0, scale: 0.8 }}
+  animate={{ opacity: 1, scale: 1 }}
+  transition={{ duration: 0.8, delay: 0.4 }}
+  className="relative"
+>
+  <div className="relative bg-gradient-to-br from-gray-900 to-black rounded-2xl p-8 shadow-2xl border border-gray-800">
+
+    {/* Forklift Image */}
+    <div className="relative h-80 w-full">
+      <div className="absolute inset-0 flex items-center justify-center">
+        <img
+          src="/c1.png"
+          alt="forklift"
+          className="w-48 h-48 animate-bounce"
+        />
+      </div>
+
+      {/* Badge 1 */}
+      <motion.div
+        className="absolute top-4 left-4 bg-green-500/20 backdrop-blur-sm px-3 py-1 rounded-full flex items-center gap-2"
+        animate={{ y: [0, -10, 0] }}
+        transition={{ duration: 3, repeat: Infinity }}
+      >
+        
+        <span className="text-green-300 text-sm font-medium">Disponible</span>
+      </motion.div>
+
+      {/* Badge 2 */}
+      <motion.div
+        className="absolute top-4 right-4 bg-blue-500/20 backdrop-blur-sm px-3 py-1 rounded-full flex items-center gap-2"
+        animate={{ y: [0, -10, 0] }}
+        transition={{ duration: 3, repeat: Infinity, delay: 0.5 }}
+      >
+       
+        <span className="text-blue-300 text-sm font-medium">Top cariste</span>
+      </motion.div>
+    </div>
+  </div>
+</motion.div>
+
           </div>
         </div>
 

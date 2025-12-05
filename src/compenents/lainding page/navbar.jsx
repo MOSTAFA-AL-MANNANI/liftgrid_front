@@ -101,11 +101,11 @@ export const Navbar = () => {
             >
               <Link to="/" className="flex items-center gap-3">
                 <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#ffb000] to-yellow-500 blur-lg opacity-50 rounded-full"></div>
-                  <div className="relative w-12 h-12 bg-gradient-to-r from-[#ffb000] to-yellow-500 rounded-xl flex items-center justify-center shadow-lg">
-                    <FontAwesomeIcon 
-                      icon={faWarehouse} 
-                      className="w-6 h-6 text-white"
+                  <div className="absolute inset-0  opacity-50 rounded-full"></div>
+                  <div className="relative w-12 h-12  rounded-xl flex items-center justify-center shadow-lg">
+                    <img 
+                      src="/logo.png" 
+                      className="w-20 text-white"
                     />
                   </div>
                 </div>
