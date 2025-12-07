@@ -50,7 +50,7 @@ function App() {
         <Route path="/" element={<PageLayout><Home /></PageLayout>} />
         <Route path="/about" element={<PageLayout><About /></PageLayout>} />
         <Route path="/services" element={<PageLayout><Services /></PageLayout>} />
-        <Route path="/choserole" element={<ChooseRole />} />
+        <Route path="/choserole" element={<PageLayout><ChooseRole /></PageLayout>} />
         {/* صفحة تسجيل الدخول */}
         <Route path="/driver/login" element={<LoginDriver />} />
 

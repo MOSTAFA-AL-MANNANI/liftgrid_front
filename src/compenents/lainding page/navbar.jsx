@@ -199,29 +199,6 @@ export const Navbar = () => {
                   </motion.div>
                 ))}
               </div>
-
-              {/* Social Links */}
-              <div className="flex items-center gap-3">
-                {[
-                  { icon: faWhatsapp, color: "text-green-500", link: "#" },
-                  { icon: faLinkedin, color: "text-blue-600", link: "#" },
-                  { icon: faFacebook, color: "text-blue-700", link: "#" }
-                ].map((social, index) => (
-                  <motion.a
-                    key={index}
-                    href={social.link}
-                    whileHover={{ scale: 1.2, y: -2 }}
-                    whileTap={{ scale: 0.9 }}
-                    className={`p-2 rounded-lg ${
-                      scrolled 
-                        ? "bg-gray-100 hover:bg-gray-200" 
-                        : "bg-white/10 hover:bg-white/20"
-                    } ${social.color}`}
-                  >
-                    <FontAwesomeIcon icon={social.icon} className="w-4 h-4" />
-                  </motion.a>
-                ))}
-              </div>
             </div>
 
             {/* Mobile Menu Button */}
