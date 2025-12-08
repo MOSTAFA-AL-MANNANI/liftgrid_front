@@ -1,130 +1,318 @@
-
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import api from "../../api";
+import {
+  FiHome,
+  FiBriefcase,
+  FiFileText,
+  FiUser,
+  FiSettings,
+  FiLogOut,
+  FiMenu,
+  FiX,
+  FiPlusCircle,
+  FiBell,
+  FiChevronDown,
+  FiGrid,
+  FiTrendingUp
+} from "react-icons/fi";
 
 export default function NavbarCompany() {
-	const [open, setOpen] = useState(false);
-	const [fullName, setFullName] = useState("");
-	const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+  const [company, setCompany] = useState(null);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [notifications, setNotifications] = useState(3); // Exemple de compteur
+  const navigate = useNavigate();
 
-	useEffect(() => {
-		try {
-			const d = JSON.parse(localStorage.getItem("company") || "null");
-			setFullName(d?.fullName || "Company");
-		} catch (e) {
-			setFullName("Company");
-		}
-	}, []);
+  // Chargement des données de l'entreprise
+  useEffect(() => {
+    const fetchCompanyData = async () => {
+      try {
+        const stored = JSON.parse(localStorage.getItem("company") || "null");
+        if (!stored?._id) return;
 
-	const handleLogout = async () => {
-		if (typeof window !== "undefined" && window.Swal) {
-			const result = await window.Swal.fire({
-				title: "Déconnexion",
-				text: "Voulez-vous vous déconnecter ?",
-				icon: "question",
-				showCancelButton: true,
-				confirmButtonColor: "#fb923c",
-				cancelButtonColor: "#6b7280",
-				confirmButtonText: "Oui, déconnecter",
-			});
+        const res = await api.get(`/companies/${stored._id}`);
+        const data = res.data;
 
-			if (!result.isConfirmed) return;
-		}
+        // Construction de l'URL du logo
+        let logoUrl = null;
+        if (data.logo && data.logo.data) {
+          logoUrl = `data:${data.logo.contentType};base64,${data.logo.data}`;
+        }
 
-		// Clear company session data
-		localStorage.removeItem("companyToken");
-		localStorage.removeItem("company");
-		// optionally clear other keys
-		try {
-			localStorage.removeItem("resetEmail");
-			localStorage.removeItem("resetCode");
-		} catch (e) {}
+        setCompany({ ...data, logoUrl });
+      } catch (error) {
+        console.log("Erreur API:", error);
+      }
+    };
 
-		navigate("/company/login");
-	};
+    fetchCompanyData();
+  }, []);
 
-	return (
-		<header className="bg-white shadow-sm">
-			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-				<div className="flex justify-between h-16 items-center">
-					<div className="flex items-center gap-4">
-						<Link to="/" className="flex items-center gap-3">
-							<img className="h-16" src="/lift.png" alt="LiftGrid Logo" />
-							<div className="hidden sm:block">
-								<div className="text-lg font-semibold text-orange-600">LiftGrid</div>
-								<div className="text-xs text-gray-500">Company</div>
-							</div>
-						</Link>
-					</div>
+  // Logout
+  const handleLogout = () => {
+    localStorage.removeItem("company");
+    localStorage.removeItem("companyToken");
+    navigate("/company/login");
+  };
 
-					<nav className="hidden md:flex items-center gap-4">
-						<Link to="/company/dashboard" className="text-gray-700 hover:text-orange-500 transition flex items-center gap-2">
-							<i className="fa-solid fa-briefcase" />
-							<span>Dashboard</span>
-						</Link>
-						<Link to="/company/job" className="text-gray-700 hover:text-orange-500 transition flex items-center gap-2">
-							<i className="fa-solid fa-briefcase" />
-							<span>Les Offres</span>
-						</Link>
-						<Link to="/company/job/add" className="text-gray-700 hover:text-orange-500 transition flex items-center gap-2">
-							<i className="fa-solid fa-briefcase" />
-							<span>Ajouter une offre</span>
-						</Link>
-						<Link to="/company/applications" className="text-gray-700 hover:text-orange-500 transition flex items-center gap-2">
-							<i className="fa-solid fa-briefcase" />
-							<span>Application</span>
-						</Link>
-						<Link to="/company/detail" className="text-gray-700 hover:text-orange-500 transition flex items-center gap-2">
-							<i className="fa-solid fa-user" />
-							<span>Voir profil</span>
-						</Link>
+  // Navigation items
+  const navItems = [
+    { to: "/company/dashboard", icon: <FiHome />, label: "Tableau de bord" },
+    { to: "/company/job", icon: <FiBriefcase />, label: "Offres" },
+    { to: "/company/applications", icon: <FiFileText />, label: "Candidatures" },
+    { to: "/company/job/add", icon: <FiPlusCircle />, label: "Nouvelle offre" },
+  ];
 
-						<Link to="/company/profile" className="text-gray-700 hover:text-orange-500 transition flex items-center gap-2">
-							<i className="fa-solid fa-pen-to-square" />
-							<span>Mettre à jour</span>
-						</Link>
+  const dropdownItems = [
+    { to: "/company/detail", icon: <FiUser />, label: "Profil public" },
+    { to: "/company/profile", icon: <FiSettings />, label: "Paramètres" },
+  ];
 
-						<button onClick={handleLogout} className="ml-2 inline-flex items-center gap-2 px-3 py-2 rounded-md bg-orange-400 text-white hover:bg-orange-500 transition">
-							<i className="fa-solid fa-right-from-bracket" /> Déconnexion
-						</button>
-					</nav>
+  return (
+    <>
+      {/* Navbar principale */}
+      <header className="sticky top-0 z-50 bg-gradient-to-r from-gray-900 to-black border-b border-white/10 backdrop-blur-lg">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            
+            {/* Logo et nom */}
+            <Link 
+              to="/company/dashboard" 
+              className="flex items-center gap-3 group hover:scale-105 transition-transform duration-300"
+            >
+              <div className="relative">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#FFB000] to-[#FF8C00] flex items-center justify-center shadow-lg">
+                  {company?.logoUrl ? (
+                    <img
+                      src={company.logoUrl}
+                      alt={`Logo ${company.name}`}
+                      className="w-8 h-8 rounded-lg object-cover"
+                    />
+                  ) : (
+                    <FiBriefcase className="text-white text-lg" />
+                  )}
+                </div>
+                <div className="absolute -inset-1 rounded-xl border-2 border-[#FFB000]/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </div>
 
-					<div className="flex items-center md:hidden">
-						<button onClick={() => setOpen((v) => !v)} className="p-2 rounded-md text-gray-700 hover:bg-gray-100">
-							<svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-								<path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={open ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
-							</svg>
-						</button>
-					</div>
-				</div>
-			</div>
+              <div className="hidden md:block">
+                <h1 className="text-lg font-bold text-white group-hover:text-[#FFB000] transition-colors">
+                  {company?.name || "Entreprise"}
+                </h1>
+                <p className="text-xs text-gray-400 -mt-1">Espace professionnel</p>
+              </div>
+            </Link>
 
-			{/* Mobile menu */}
-			{open && (
-				<div className="md:hidden bg-white border-t">
-					<div className="px-4 pt-4 pb-4 space-y-2">
-						<div className="flex items-center justify-between">
-							<div className="text-sm font-medium text-gray-700">{fullName}</div>
-							<button onClick={handleLogout} className="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-orange-400 text-white hover:bg-orange-500 transition">
-								<i className="fa-solid fa-right-from-bracket" />
-							</button>
-						</div>
+            {/* Navigation desktop */}
+            <nav className="hidden md:flex items-center gap-1">
+              {navItems.map((item) => (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  className="flex items-center gap-2 px-4 py-2 text-gray-300 hover:text-[#FFB000] hover:bg-white/5 rounded-xl transition-all duration-300 group"
+                >
+                  <div className="text-lg group-hover:scale-110 transition-transform">
+                    {item.icon}
+                  </div>
+                  <span className="font-medium">{item.label}</span>
+                </Link>
+              ))}
+            </nav>
 
-						<Link to="/company/offers" className="block text-gray-700 hover:text-orange-500 transition flex items-center gap-2">
-							<i className="fa-solid fa-briefcase" /> Voir les offres
-						</Link>
+            {/* Actions droite (desktop) */}
+            <div className="hidden md:flex items-center gap-4">
+              {/* Notifications */}
+              <button className="relative p-2 text-gray-300 hover:text-[#FFB000] transition-colors">
+                <FiBell className="text-xl" />
+                {notifications > 0 && (
+                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center animate-pulse">
+                    {notifications}
+                  </span>
+                )}
+              </button>
 
-						<Link to="/company/profile" className="block text-gray-700 hover:text-orange-500 transition flex items-center gap-2">
-							<i className="fa-solid fa-user" /> Voir profil
-						</Link>
+              {/* Menu déroulant profil */}
+              <div className="relative">
+                <button
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                  className="flex items-center gap-3 p-2 hover:bg-white/5 rounded-xl transition-all duration-300 group"
+                >
+                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#FFB000] to-[#FF8C00] flex items-center justify-center">
+                    {company?.logoUrl ? (
+                      <img
+                        src={company.logoUrl}
+                        alt="Avatar"
+                        className="w-6 h-6 rounded-md object-cover"
+                      />
+                    ) : (
+                      <FiUser className="text-white text-sm" />
+                    )}
+                  </div>
+                  <div className="text-left">
+                    <p className="text-sm font-semibold text-white">{company?.name || "Entreprise"}</p>
+                    <p className="text-xs text-gray-400">Gérer le compte</p>
+                  </div>
+                  <FiChevronDown className={`text-gray-400 transition-transform duration-300 ${dropdownOpen ? 'rotate-180' : ''}`} />
+                </button>
 
-						<Link to="/company/update-profile" className="block text-gray-700 hover:text-orange-500 transition flex items-center gap-2">
-							<i className="fa-solid fa-pen-to-square" /> Mettre à jour
-						</Link>
-					</div>
-				</div>
-			)}
-		</header>
-	);
+                {/* Dropdown menu */}
+                {dropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-56 bg-gray-900/95 backdrop-blur-lg border border-white/10 rounded-xl shadow-2xl py-2 z-50 animate-scaleUp">
+                    <div className="px-4 py-3 border-b border-white/10">
+                      <p className="text-sm text-gray-400">Connecté en tant que</p>
+                      <p className="text-white font-semibold truncate">{company?.email || "entreprise@email.com"}</p>
+                    </div>
+                    
+                    {dropdownItems.map((item) => (
+                      <Link
+                        key={item.to}
+                        to={item.to}
+                        className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-[#FFB000] hover:bg-white/5 transition-colors"
+                        onClick={() => setDropdownOpen(false)}
+                      >
+                        {item.icon}
+                        <span>{item.label}</span>
+                      </Link>
+                    ))}
+                    
+                    <div className="border-t border-white/10 mt-2 pt-2">
+                      <button
+                        onClick={handleLogout}
+                        className="flex items-center gap-3 w-full px-4 py-3 text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-colors"
+                      >
+                        <FiLogOut />
+                        <span>Déconnexion</span>
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Bouton menu mobile */}
+            <button
+              className="md:hidden p-2 rounded-lg text-gray-300 hover:text-[#FFB000] hover:bg-white/5 transition-all duration-300"
+              onClick={() => setOpen(!open)}
+            >
+              {open ? <FiX className="text-2xl" /> : <FiMenu className="text-2xl" />}
+            </button>
+          </div>
+        </div>
+
+        {/* Menu mobile */}
+        {open && (
+          <div className="md:hidden bg-gray-900/95 backdrop-blur-lg border-t border-white/10 animate-slideDown">
+            <div className="px-4 py-4">
+              
+              {/* En-tête mobile */}
+              <div className="flex items-center gap-3 mb-6 p-3 bg-white/5 rounded-xl">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#FFB000] to-[#FF8C00] flex items-center justify-center">
+                  {company?.logoUrl ? (
+                    <img
+                      src={company.logoUrl}
+                      alt={`Logo ${company.name}`}
+                      className="w-10 h-10 rounded-lg object-cover"
+                    />
+                  ) : (
+                    <FiBriefcase className="text-white text-xl" />
+                  )}
+                </div>
+                <div>
+                  <h2 className="font-bold text-white">{company?.name || "Entreprise"}</h2>
+                  <p className="text-sm text-gray-400">{company?.email || "entreprise@email.com"}</p>
+                </div>
+              </div>
+
+              {/* Liens navigation mobile */}
+              <div className="space-y-1 mb-4">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.to}
+                    to={item.to}
+                    className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-[#FFB000] hover:bg-white/5 rounded-xl transition-all duration-300"
+                    onClick={() => setOpen(false)}
+                  >
+                    <div className="text-xl">{item.icon}</div>
+                    <span className="font-medium">{item.label}</span>
+                  </Link>
+                ))}
+              </div>
+
+              {/* Section profil mobile */}
+              <div className="border-t border-white/10 pt-4">
+                <h3 className="px-4 text-sm text-gray-400 mb-2">Profil</h3>
+                {dropdownItems.map((item) => (
+                  <Link
+                    key={item.to}
+                    to={item.to}
+                    className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-[#FFB000] hover:bg-white/5 rounded-xl transition-colors"
+                    onClick={() => setOpen(false)}
+                  >
+                    {item.icon}
+                    <span>{item.label}</span>
+                  </Link>
+                ))}
+              </div>
+
+              {/* Déconnexion mobile */}
+              <div className="mt-6 border-t border-white/10 pt-4">
+                <button
+                  onClick={() => {
+                    setOpen(false);
+                    handleLogout();
+                  }}
+                  className="flex items-center justify-center gap-2 w-full py-3 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-xl font-semibold hover:scale-105 transition-all duration-300"
+                >
+                  <FiLogOut />
+                  <span>Déconnexion</span>
+                </button>
+              </div>
+
+              {/* Indicateur statut */}
+              <div className="mt-4 px-4 py-3 bg-gradient-to-r from-[#FFB000]/10 to-[#FF8C00]/10 border border-[#FFB000]/20 rounded-xl">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                  <p className="text-sm text-[#FFB000]">Connecté • Entreprise active</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </header>
+
+      {/* Overlay pour le menu mobile */}
+      {open && (
+        <div 
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 md:hidden animate-fadeIn"
+          onClick={() => setOpen(false)}
+        />
+      )}
+
+      {/* Styles CSS pour les animations */}
+      <style jsx>{`
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        @keyframes slideDown {
+          from { opacity: 0; transform: translateY(-10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes scaleUp {
+          from { opacity: 0; transform: scale(0.95); }
+          to { opacity: 1; transform: scale(1); }
+        }
+        .animate-fadeIn {
+          animation: fadeIn 0.3s ease-out;
+        }
+        .animate-slideDown {
+          animation: slideDown 0.4s ease-out;
+        }
+        .animate-scaleUp {
+          animation: scaleUp 0.3s ease-out;
+        }
+      `}</style>
+    </>
+  );
 }
-
