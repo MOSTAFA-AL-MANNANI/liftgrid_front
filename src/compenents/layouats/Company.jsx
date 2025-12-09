@@ -6,7 +6,7 @@ export default function CompanyLayout({ children }) {
   return (
     <>
       <NavbarCompany />
-      <div className="pt-20">{children}</div>
+      <div className="">{children}</div>
       <Footer />
     </>
   );

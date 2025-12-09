@@ -6,7 +6,7 @@ export default function DriverLayout({ children }) {
   return (
     <>
       <NavbarDriver />
-      <div className="pt-20">{children}</div>
+      <div className="">{children}</div>
       <Footer />
     </>
   );

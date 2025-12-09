@@ -54,13 +54,13 @@ export const Navbar = () => {
   const authItems = [
     {
       name: "Cariste",
-      link: "/login/driver",
+      link: "/driver/login",
       icon: faUser,
       color: "from-[#ffb000] to-yellow-500"
     },
     {
       name: "Entreprise",
-      link: "/login/company",
+      link: "/company/login",
       icon: faBuilding,
       color: "from-blue-500 to-blue-600"
     }
@@ -306,41 +306,14 @@ export const Navbar = () => {
               >
                 <div className="grid grid-cols-2 gap-4">
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-gray-900 mb-1">
-                      500+
-                    </div>
                     <div className="text-sm text-gray-600">Caristes actifs</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-gray-900 mb-1">
-                      200+
-                    </div>
                     <div className="text-sm text-gray-600">Entreprises</div>
                   </div>
                 </div>
               </motion.div>
 
-              {/* Mobile Social Links */}
-              <div className="flex justify-center gap-4">
-                {[
-                  { icon: faWhatsapp, color: "bg-green-500", label: "WhatsApp" },
-                  { icon: faLinkedin, color: "bg-blue-600", label: "LinkedIn" },
-                  { icon: faFacebook, color: "bg-blue-700", label: "Facebook" }
-                ].map((social, index) => (
-                  <motion.a
-                    key={index}
-                    href="#"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    className="flex flex-col items-center gap-1"
-                  >
-                    <div className={`${social.color} w-10 h-10 rounded-full flex items-center justify-center`}>
-                      <FontAwesomeIcon icon={social.icon} className="w-5 h-5 text-white" />
-                    </div>
-                    <span className="text-xs text-gray-600">{social.label}</span>
-                  </motion.a>
-                ))}
-              </div>
             </div>
           </motion.div>
         )}
