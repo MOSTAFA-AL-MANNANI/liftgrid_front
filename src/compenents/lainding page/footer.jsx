@@ -76,24 +76,20 @@ export const Footer = () => {
   const contactInfo = [
     {
       icon: <FiMapPin />,
-      text: "123 Avenue des Entreprises, 75000 Paris",
+      text: "Maroc, Casablanca",
       link: "https://maps.google.com"
     },
     {
       icon: <FiPhone />,
-      text: "+33 1 23 45 67 89",
-      link: "tel:+33123456789"
+      text: "+212 6 17 12 5803",
+      link: "tel:+212617125803"
     },
     {
       icon: <FiMail />,
-      text: "contact@liftgrid.fr",
-      link: "mailto:contact@liftgrid.fr"
+      text: "almannanimostafa@gmail.com",
+      link: "mailto:almannanimostafa@gmail.com"
     },
-    {
-      icon: <FiClock />,
-      text: "Lun-Ven: 9h-18h",
-      link: null
-    }
+
   ];
 
   const socialMedia = [

@@ -62,6 +62,7 @@ export default function NavbarCompany() {
     { to: "/company/job", icon: <FiBriefcase />, label: "Offres" },
     { to: "/company/applications", icon: <FiFileText />, label: "Candidatures" },
     { to: "/company/job/add", icon: <FiPlusCircle />, label: "Nouvelle offre" },
+    { to: "/company/driver", icon: <FiUser />, label: "Liste des chauffeurs" },
   ];
 
   const dropdownItems = [
@@ -82,7 +83,7 @@ export default function NavbarCompany() {
               className="flex items-center gap-3 group hover:scale-105 transition-transform duration-300"
             >
               <div className="relative">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#FFB000] to-[#FF8C00] flex items-center justify-center shadow-lg">
+                <div className="w-10 h-10 rounded-xl  flex items-center justify-center shadow-lg">
                   {company?.logoUrl ? (
                     <img
                       src={company.logoUrl}
@@ -122,15 +123,6 @@ export default function NavbarCompany() {
 
             {/* Actions droite (desktop) */}
             <div className="hidden md:flex items-center gap-4">
-              {/* Notifications */}
-              <button className="relative p-2 text-gray-300 hover:text-[#FFB000] transition-colors">
-                <FiBell className="text-xl" />
-                {notifications > 0 && (
-                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center animate-pulse">
-                    {notifications}
-                  </span>
-                )}
-              </button>
 
               {/* Menu déroulant profil */}
               <div className="relative">
@@ -138,7 +130,7 @@ export default function NavbarCompany() {
                   onClick={() => setDropdownOpen(!dropdownOpen)}
                   className="flex items-center gap-3 p-2 hover:bg-white/5 rounded-xl transition-all duration-300 group"
                 >
-                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#FFB000] to-[#FF8C00] flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-lg flex items-center justify-center">
                     {company?.logoUrl ? (
                       <img
                         src={company.logoUrl}

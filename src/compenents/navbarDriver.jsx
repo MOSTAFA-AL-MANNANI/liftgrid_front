@@ -13,7 +13,9 @@ import {
   FiChevronDown,
   FiGrid,
   FiCheckCircle,
-  FiTrendingUp
+  FiTrendingUp,
+  FiUsers,
+  FiPlusCircle  
 } from "react-icons/fi";
 
 export default function NavbarDriver() {
@@ -68,6 +70,7 @@ export default function NavbarDriver() {
     { to: "/driver/dashboard", icon: <FiHome />, label: "Tableau de bord" },
     { to: "/driver/jobs", icon: <FiBriefcase />, label: "Offres disponibles" },
     { to: "/driver/applications-status", icon: <FiFileText />, label: "Mes candidatures" },
+    { to: "/driver/company", icon: <FiUsers />, label: "Entreprises" },
   ];
 
   const dropdownItems = [

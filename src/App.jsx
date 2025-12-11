@@ -35,6 +35,9 @@ import { About } from "./compenents/lainding page/about";
 import { Home } from "./compenents/lainding page/home";
 import { Services } from "./compenents/lainding page/services";
 import PageLayout from "./compenents/layouats/page";
+import CompanyDriversList from "./compenents/company/listDriver";
+import DriverCompaniesList from "./compenents/listComapny";
+import ProtectedRoute from "./compenents/protextedRouter";
 
 
 
@@ -70,11 +73,12 @@ function App() {
         
 
         {/* لوحة التحكم الخاصة بالسائق */}
-        <Route path="/driver/dashboard" element={<DriverLayout><Dashbord /></DriverLayout>} />
+        <Route path="/driver/dashboard" element={ <ProtectedRoute type="driver"><DriverLayout><Dashbord /></DriverLayout></ProtectedRoute>} />
+         <Route path="/driver/company" element={ <ProtectedRoute type="driver"><DriverLayout><DriverCompaniesList /></DriverLayout></ProtectedRoute>} />
         <Route path="/driver/jobs" element={<DriverLayout><DriverJobsList /></DriverLayout>} />
-        <Route path="/driver/applications-status" element={<DriverLayout><DriverApplicationsStatus /></DriverLayout>} />
-        <Route path="/driver/profile" element={<DriverLayout><UpdateDriver /></DriverLayout>} />
-        <Route path="/driver/profile/voir" element={<DriverLayout><DriverDetail /></DriverLayout>} />
+        <Route path="/driver/applications-status" element={ <ProtectedRoute type="driver"><DriverLayout><DriverApplicationsStatus /></DriverLayout></ProtectedRoute>} />
+        <Route path="/driver/profile" element={ <ProtectedRoute type="driver"><DriverLayout><UpdateDriver /></DriverLayout></ProtectedRoute>} />
+        <Route path="/driver/profile/voir" element={ <ProtectedRoute type="driver"><DriverLayout><DriverDetail /></DriverLayout></ProtectedRoute>} />
 
 
 
@@ -95,19 +99,19 @@ function App() {
         <Route path="/company/reset-password" element={<ResetPasswordCompany />} />
 
         {/* صفحة الملف الشخصي */}
-        <Route path="/company/profile" element={<CompanyLayout><UpdateCompany /></CompanyLayout>} />
+        <Route path="/company/profile" element={<ProtectedRoute type="company"><CompanyLayout><UpdateCompany /></CompanyLayout></ProtectedRoute>} />
 
-        <Route path="/company/dashboard" element={<CompanyLayout><DashbordCompany /></CompanyLayout>} />
+        <Route path="/company/dashboard" element={<ProtectedRoute type="company"><CompanyLayout><DashbordCompany /></CompanyLayout></ProtectedRoute>} />
 
 
-        <Route path="/company/job" element={<CompanyLayout><CompanyJobsList /></CompanyLayout>} />
-        <Route path="/company/job/add" element={<CompanyLayout><AddJob /></CompanyLayout>} />
-        <Route path="/company/job/:id" element={<CompanyLayout><JobDetail /></CompanyLayout>} />
-        <Route path="/company/detail" element={<CompanyLayout><CompanyDetail /></CompanyLayout>} />
-
-        <Route path="/company/job/:id/applications" element={<CompanyLayout><JobApplicationsForCompany /></CompanyLayout>} />
-        <Route path="/company/application/:id/update-status" element={<CompanyLayout><CompanyUpdateApplicationStatus  /></CompanyLayout>} />
-        <Route path="/company/applications" element={<CompanyLayout><CompanyApplicationsList /></CompanyLayout>} />
+        <Route path="/company/job" element={<ProtectedRoute type="company"><CompanyLayout><CompanyJobsList /></CompanyLayout></ProtectedRoute>} />
+        <Route path="/company/driver" element={<ProtectedRoute type="company"><CompanyLayout><CompanyDriversList /></CompanyLayout></ProtectedRoute>} />
+        <Route path="/company/job/add" element={<ProtectedRoute type="company"><CompanyLayout><AddJob /></CompanyLayout></ProtectedRoute>} />
+        <Route path="/company/job/:id" element={<ProtectedRoute type="company"><CompanyLayout><JobDetail /></CompanyLayout></ProtectedRoute>} />
+        <Route path="/company/detail" element={<ProtectedRoute type="company"><CompanyLayout><CompanyDetail /></CompanyLayout></ProtectedRoute>} />
+        <Route path="/company/job/:id/applications" element={<ProtectedRoute type="company"><CompanyLayout><JobApplicationsForCompany /></CompanyLayout></ProtectedRoute>} />
+        <Route path="/company/application/:id/update-status" element={<ProtectedRoute type="company"><CompanyLayout><CompanyUpdateApplicationStatus  /></CompanyLayout></ProtectedRoute>} />
+        <Route path="/company/applications" element={<ProtectedRoute type="company"><CompanyLayout><CompanyApplicationsList /></CompanyLayout></ProtectedRoute>} />
       </Routes>
     </BrowserRouter>
     </>
